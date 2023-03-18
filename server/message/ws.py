@@ -1,4 +1,5 @@
 import time
+import pika
 import asyncio
 import datetime
 import json
@@ -114,6 +115,7 @@ class Router:
                     await websocket.send(str(self.session))
                     print(f"S:{self.session}")
             except Exception as e:
+                self.session.seq = 1
                 await websocket.send(json.dumps({"error": {"type": "PythonError", "msg": str(e)}}))
                 print(f"S:{json.dumps({'error': {'type': 'PythonError', 'msg': str(e)}})}")
                 continue
@@ -146,9 +148,29 @@ class Router:
 class MessageRouter(Router):
     """Sample object."""
 
-    def send_message(self, to, message):
+    def send_message(self, sender, to, message):
         print("send_message:", to, message)
+
+        RabbitMQController.send_message(sender, to, message)
+
         return "MESSAGE SENT!"
+
+
+class RabbitMQController:
+    @classmethod
+    def send_message(cls, sender, to, message):
+        connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+        channel = connection.channel()
+        channel.queue_declare(queue=to)
+
+        body = json.dumps({
+            "sender": sender,
+            "to": to,
+            "message": message
+        }).encode('utf-8')
+
+        channel.basic_publish(exchange='', routing_key=to, body=body)
+        connection.close()
 
 
 if __name__ == '__main__':
