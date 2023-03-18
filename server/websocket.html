@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Websocket Playground</title>
+    </head>
+    <body>
+        <h1>RealTask Playground</h1>
+        <div id="main">
+            <span class="scroll-start-at-top"></span>
+            <div id="box"></div>
+
+        </div>
+        <input id="input"/>
+        <button id="send">Send</button>
+        <style>
+            body {
+                background: #2e2e2e;
+                font-family: monospace;
+            }
+            h1 {
+                color: white;
+            }
+            ul {
+                background: black;
+                color: white;
+                padding: 10px;
+                list-style-type:none;
+                overflow: scroll;
+            }
+            .scroll-start-at-top {
+              flex: 1 1 0%;
+            }
+            div.send {
+                color: #a87829;
+            }
+            div.received {
+                color: #5454cc;
+            }
+            div.error {
+                color: #ff0000;
+            }
+            #main {
+                color: white;
+                background: black;
+                padding: 10px;
+                height: 650px;
+                overflow: auto;
+                display: flex;
+                flex-direction: column-reverse;
+            }
+            input {
+                width: 80%;
+            }
+            button {
+                width: 15%;
+            }
+        </style>
+        <script>
+            var ws = new WebSocket("ws://127.0.0.1:9090/")
+
+            var id = btoa(Math.random().toString()).substr(10, 5);
+
+            messages = document.getElementById('box');
+            // document.getElementById('main');
+            // document.body.appendChild(messages);
+
+            ws.onopen = function() {
+                var message = document.createElement('div');
+                message.className = "status";
+                message.innerHTML = 'Connection opened';
+                messages.appendChild(message);
+
+                msg = '{"id": "' + id + '", "seq": 0, "control": "ping"}'
+                ws.send(msg);
+
+                var message = document.createElement('div');
+                message.className = "send";
+                message.innerHTML = msg;
+                messages.appendChild(message);
+
+                return null;
+            };
+
+            ws.onmessage = function (event) {
+                var messages = document.getElementById('box')
+                message = document.createElement('div')
+                msg = event.data
+                if (msg.startsWith('{"error":')) {
+                    message.className = "error"
+                } else {
+                    message.className = "received"
+                    document.getElementById('input').value = event.data;
+                }
+                content = document.createTextNode(event.data);
+
+                message.appendChild(content);
+                messages.appendChild(message);
+            };
+            ws.onclose = function (event) {
+                console.log("close");
+            }
+
+            window.onload = function () {
+                document.getElementById('send').onclick = function () {
+                    var messages = document.getElementById('box')
+                    var message = document.createElement('div');
+                    message.className = "send";
+                    message.innerHTML = document.getElementById('input').value;
+                    messages.appendChild(message);
+
+                    ws.send(document.getElementById('input').value);
+                    // document.getElementById('input').value = '';
+                }
+            }
+
+        </script>
+    </body>
+</html>
