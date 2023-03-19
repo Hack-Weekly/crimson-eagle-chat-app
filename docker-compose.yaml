@@ -34,3 +34,11 @@ services:
       - rabbitmq
     ports:
       - '8000:8000'
+
+  frontend:
+    container_name: frontend
+    build: client/.
+    volumes:
+      - ./client:/app/
+    ports:
+      - '3000:3000'
