@@ -23,8 +23,8 @@ const TextMessage = (chat: ChatProps) => {
         className={clsx(
           'flex rounded-xl p-2',
           chat.incoming === true
-            ? 'bg-slate-400 dark:text-black'
-            : 'bg-main-accent'
+            ? 'bg-slate-300 dark:text-black'
+            : 'bg-main-accent text-white'
         )}
       >
         {chat.message}
