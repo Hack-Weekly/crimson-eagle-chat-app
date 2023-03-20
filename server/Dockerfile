@@ -23,6 +23,12 @@ COPY requirements.txt requirements.txt
 RUN --mount=type=cache,target=/root/.cache \
     pip install -r requirements.txt
 
+RUN echo "alias pm='python /app/django/manage.py'" >> /root/.bashrc \
+    && echo "alias pmshb='python /app/django/manage.py shell -i bpython'" >> /root/.bashrc \
+    && echo "alias pmsh='python /app/django/manage.py shell -i python'" >> /root/.bashrc \
+    && echo "alias pmmk='python /app/django/manage.py makemigrations'" >> /root/.bashrc \
+    && echo "alias pmmi='python /app/django/manage.py migrate'" >> /root/.bashrc
+
 COPY . /app
 
 

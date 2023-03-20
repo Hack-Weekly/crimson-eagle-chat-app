@@ -170,7 +170,7 @@ class RabbitMQController:
         }).encode('utf-8')
 
         channel.basic_publish(exchange='', routing_key=to, body=body)
-        connection.close()
+        # connection.close()
 
 
 if __name__ == '__main__':
