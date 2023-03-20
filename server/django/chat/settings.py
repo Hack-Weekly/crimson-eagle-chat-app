@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # local
     'message.apps.MessageConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
