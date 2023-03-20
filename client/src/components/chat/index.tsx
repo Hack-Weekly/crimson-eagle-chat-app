@@ -4,7 +4,7 @@ import Divider from '../ui/Divider'
 
 const Chat = () => {
   return (
-    <div className="group flex h-screen w-[300px] flex-col gap-2 bg-light-primary dark:bg-dark dark:text-white">
+    <div className="group flex h-screen w-[300px] flex-col gap-2 border-r bg-light-primary dark:border-slate-700 dark:bg-dark dark:text-white">
       {/* Header */}
       <div className="m-3 flex items-center justify-between px-2 ">
         <h4>Chats</h4>
