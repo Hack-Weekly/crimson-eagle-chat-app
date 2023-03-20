@@ -7,9 +7,8 @@ import Image from 'next/image'
 const SideLinks = dynamic(() => import('./sideLinks'), { ssr: false })
 
 export default function Sidebar() {
-  console.log('hello')
   return (
-    <div className="flex h-screen w-[100px] flex-col items-center gap-2 bg-light-secondary p-3 dark:bg-dark">
+    <div className="flex h-screen w-[100px] flex-col items-center gap-2 border-r bg-light-secondary p-3 dark:border-slate-700 dark:bg-dark">
       <div className="flex flex-grow flex-col items-center gap-2">
         <Link href="/">
           <ChatAppLogo />
@@ -32,5 +31,5 @@ export default function Sidebar() {
 
 function DarkModeToggle() {
   const { dark, changeDarkMode } = useTheme()
-  return <Toggle checked={dark} onChange={changeDarkMode} label="dark" />
+  return <Toggle checked={dark} onChange={changeDarkMode} />
 }
