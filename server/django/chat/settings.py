@@ -139,5 +139,19 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Hack Weekly Chat App',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    # OTHER SETTINGS
+    "SWAGGER_UI_SETTINGS": """{
+            deepLinking: true,
+            docExpansion: 'none',
+            defaultModelsExpandDepth: -1,
+            defaultModelExpandDepth: -1,
+            syntaxHighlight: {
+                theme: 'monokai'
+            },
+            persistAuthorization: true,
+            tryItOutEnabled: true,
+            displayRequestDuration: true,
+            presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+            queryConfigEnabled: true,
+            layout: "StandaloneLayout",
+        }""",
 }
