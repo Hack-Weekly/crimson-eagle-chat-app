@@ -27,3 +27,18 @@
     --accent-green: 0 184 122;
   }
 }
+
+.scrollbarThin::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+.scrollbarThin::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: transparent;
+}
+
+.scrollbarThin:hover::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: #6c6b6b;
+}

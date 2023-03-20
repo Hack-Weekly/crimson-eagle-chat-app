@@ -1,18 +1,14 @@
-import clsx from 'clsx'
-
 interface ToggleProps {
   checked?: boolean
   onChange: () => void
-  /**
-   * A Name for the Toggle Component to keep it different from other Toggle Component.
-   */
-  label: string
 }
+/**
+ * A Dark Mode Toggle component use to change Dark mode
+ */
 
-export default function Toggle({
+export default function DarkModeToggle({
   checked,
   onChange,
-  label,
 }: ToggleProps): JSX.Element {
   return (
     <label
@@ -22,18 +18,12 @@ export default function Toggle({
     >
       <input
         type="checkbox"
-        className={clsx('sr-only', label && `peer/${label}`)}
+        className="peer/dark sr-only"
         onChange={onChange}
         checked={checked}
         id="toggle-check"
       />
-      <div
-        className={clsx(
-          "h-5 w-10 rounded-full bg-gray-400 after:absolute after:top-0.5 after:left-1 after:h-4 after:w-[18px] after:rounded-full after:bg-white after:transition-all after:content-['']  dark:bg-gray-700",
-          label &&
-            `peer-checked/${label}:bg-main-accent peer-checked/${label}:after:left-[2px] peer-checked/${label}:after:translate-x-full`
-        )}
-      />
+      <div className="h-5 w-10 rounded-full bg-gray-400 after:absolute after:top-0.5 after:left-1 after:h-4 after:w-[18px] after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked/dark:bg-main-accent peer-checked/dark:after:left-[2px] peer-checked/dark:after:translate-x-full dark:bg-gray-700" />
     </label>
   )
 }
