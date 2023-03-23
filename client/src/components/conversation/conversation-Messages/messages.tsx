@@ -13,6 +13,18 @@ export interface ChatProps {
   menu?: boolean
 }
 
+//fetch chats
+const fetchChatData = async () => {
+  try {
+    const data = await fetch('http://127.0.0.1:8000/api/messages/')
+    return data.json()
+  } catch (err: any) {
+    console.log(err.message)
+  }
+}
+
+console.log(fetchChatData())
+
 const Message = ({ menu }: { menu: boolean }) => {
   const renderMessage = (chat: ChatProps, idx: number) => {
     switch (chat.type) {
