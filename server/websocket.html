@@ -10,7 +10,7 @@
             <div id="box"></div>
 
         </div>
-        <input id="input"/>
+        <input id="input" value='{"function": "send", "msg": "asfd", "to": 1}'>
         <button id="send">Send</button>
         <style>
             body {
@@ -70,8 +70,8 @@
                 message.innerHTML = 'Connection opened';
                 messages.appendChild(message);
 
-                msg = '{"id": "' + id + '", "seq": 0, "control": "ping"}'
-                ws.send(msg);
+                // msg = '{"function": "ping"}'
+                ws.send(document.getElementById('input').value);
 
                 var message = document.createElement('div');
                 message.className = "send";
@@ -89,7 +89,7 @@
                     message.className = "error"
                 } else {
                     message.className = "received"
-                    document.getElementById('input').value = event.data;
+                    // document.getElementById('input').value = event.data;
                 }
                 content = document.createTextNode(event.data);
 
@@ -104,6 +104,7 @@
                 document.getElementById('send').onclick = function () {
                     var messages = document.getElementById('box')
                     var message = document.createElement('div');
+
                     message.className = "send";
                     message.innerHTML = document.getElementById('input').value;
                     messages.appendChild(message);
