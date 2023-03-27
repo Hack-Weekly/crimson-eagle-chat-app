@@ -37,6 +37,27 @@ const fetchChatData = async () => {
 }
 console.log(fetchChatData())
 
+const postData = async (id: string, message: string, partner: string) => {
+  try {
+    await fetch('http://127.0.0.1:8000/api/messages/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        text: message,
+        timestamp: Date.now(),
+        to: partner,
+      }),
+    })
+    console.log('Message sent!')
+  } catch (err: any) {
+    console.log(err.message)
+  }
+}
+postData('001', 'test message!', '002')
+
 const Message = ({ menu }: { menu: boolean }) => {
   const renderMessage = (chat: ChatProps, idx: number) => {
     switch (chat.type) {
