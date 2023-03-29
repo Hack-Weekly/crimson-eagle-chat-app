@@ -1,4 +1,8 @@
-export default function LoginImg() {
+interface Props {
+  classes: string
+}
+
+export default function LoginImg({ classes }: Props) {
   return (
     <svg
       width="429"
@@ -6,8 +10,9 @@ export default function LoginImg() {
       viewBox="0 0 429 500"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={classes}
     >
-      <g clip-path="url(#clip0_4_9126)">
+      <g clipPath="url(#clip0_4_9126)">
         <path
           d="M414.821 184.287H13.488C9.91202 184.283 6.48368 182.86 3.95509 180.332C1.4265 177.803 0.0041291 174.375 0 170.799V13.488C0.0041291 9.91201 1.4265 6.48368 3.95509 3.95509C6.48368 1.4265 9.91202 0.0041291 13.488 0H414.821C418.397 0.0041291 421.825 1.4265 424.354 3.95509C426.882 6.48368 428.305 9.91201 428.309 13.488V170.799C428.305 174.375 426.882 177.803 424.354 180.332C421.825 182.86 418.397 184.283 414.821 184.287Z"
           fill="#F2F2F2"

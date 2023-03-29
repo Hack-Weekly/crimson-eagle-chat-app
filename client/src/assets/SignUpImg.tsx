@@ -1,4 +1,8 @@
-export default function SignUpImg() {
+interface Props {
+  classes: string
+}
+
+export default function SignUpImg({ classes }: Props) {
   return (
     <svg
       width="697"
@@ -6,6 +10,7 @@ export default function SignUpImg() {
       viewBox="0 0 697 500"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={classes}
     >
       <path
         d="M18 499C18 499.555 18.4267 500 18.958 500H606.042C606.573 500 607 499.555 607 499C607 498.445 606.573 498 606.042 498H18.958C18.4267 498 18 498.445 18 499Z"

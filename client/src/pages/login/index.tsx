@@ -3,11 +3,13 @@ import { ChatAppLogo } from '@/assets'
 import LoginImg from '@/assets/LoginImg'
 import SignUpImg from '@/assets/SignUpImg'
 
+const imgClasses = 'h-80'
+
 export default function Login() {
   const [signupPage, setSignupPage] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
+  // const [showPassword, setShowPassword] = useState(false)
   const [username, setUsername] = useState('')
   const [isPending, setIsPending] = useState(false)
   const [signupError, setSignupError] = useState(false)
@@ -18,13 +20,23 @@ export default function Login() {
     const data = {
       username,
       email,
-      password,
+      // password,
     }
     setIsPending(true)
 
     //signup
     if (signupPage) {
       try {
+        await fetch('http://127.0.0.1:8000/api/users/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username,
+            email,
+          }),
+        })
         console.log('signed up')
         setIsPending(false)
       } catch (err: any) {
@@ -47,7 +59,7 @@ export default function Login() {
   }
 
   return (
-    <div className="grid grid-cols-2 content-center justify-items-center gap-20 p-20">
+    <div className="grid grid-cols-2 content-center gap-y-20 p-20">
       <div className="col-span-full flex justify-center gap-6">
         <ChatAppLogo />
         <p className="text-6xl font-extrabold">Eagle Talk</p>
@@ -55,12 +67,12 @@ export default function Login() {
 
       <form
         onSubmit={submitHandler}
-        className="flex w-fit flex-col flex-wrap content-center gap-5 rounded border-2 bg-light-secondary p-12 shadow"
+        className="flex h-fit w-full flex-col flex-wrap content-center gap-5 rounded border-2 bg-light-secondary p-12 shadow"
       >
         <p className="text-center text-4xl font-semibold">
           {signupPage ? 'Sign Up' : 'Log In'}
         </p>
-        <div>
+        <div className="flex flex-col gap-1">
           <label htmlFor="email">Email:</label>
           <input
             id="email"
@@ -68,10 +80,11 @@ export default function Login() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
+            className="rounded-md border-2 border-solid border-black bg-transparent"
           />
         </div>
         {signupPage && (
-          <div>
+          <div className="flex flex-col gap-1">
             <label htmlFor="username">Display Name:</label>
             <input
               id="username"
@@ -79,10 +92,12 @@ export default function Login() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUsername(e.target.value)
               }
+              className="rounded-md border-2 border-solid border-black bg-transparent"
             />
           </div>
         )}
-        <div>
+        {/* password */}
+        {/* <div className="flex flex-col gap-1">
           <label htmlFor="password">Password:</label>
           <input
             id="password"
@@ -90,6 +105,7 @@ export default function Login() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }
+            className="rounded-md border-2 border-solid border-black bg-transparent"
           />
 
           <div className="">
@@ -100,22 +116,32 @@ export default function Login() {
             />
             <label htmlFor="passwordCheckBox">Show password</label>
           </div>
-        </div>
+        </div> */}
 
         {/* **********************LOGIN BUTTONS********************** */}
-        <div className="">
+        <div className="border-black text-center">
           {signupPage && (
-            <button type="submit">
+            <button
+              type="submit"
+              className="rounded-md border-2 border-solid border-black p-1"
+            >
               {isPending ? 'Authenticating...' : 'Sign Up'}
             </button>
           )}
           {!signupPage && (
-            <button type="submit">
+            <button
+              type="submit"
+              className="rounded-md border-2 border-solid border-black p-1"
+            >
               {isPending ? 'Authenticating...' : 'Log In'}
             </button>
           )}
-          <p>or</p>
-          <button type="button" onClick={() => setSignupPage((prev) => !prev)}>
+          <p className="r">or</p>
+          <button
+            className="border-b border-solid border-black"
+            type="button"
+            onClick={() => setSignupPage((prev) => !prev)}
+          >
             {!signupPage ? 'Sign Up' : 'Log In'}
           </button>
         </div>
@@ -124,8 +150,8 @@ export default function Login() {
         {loginError && <p className="">{loginError}</p>}
       </form>
 
-      {signupPage && <SignUpImg />}
-      {!signupPage && <LoginImg />}
+      {signupPage && <SignUpImg classes={imgClasses} />}
+      {!signupPage && <LoginImg classes={imgClasses} />}
     </div>
   )
 }
